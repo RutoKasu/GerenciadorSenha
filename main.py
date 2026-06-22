@@ -2,5 +2,5 @@ from database import *
 
 criar()
 inserir()
-update()
+listar()
 deletar()

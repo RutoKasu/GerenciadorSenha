@@ -1,17 +1,21 @@
 import sqlite3
 
+#Iniciar a conexão com o banco de dados podendo assim fazer o CRUD.
 def connect():
     conexao = sqlite3.connect("banco/senhas.db")
     return conexao
 
 
-
+#Essa função implementa a criação das tabelas no banco de dados.
+#A tabela user e a logins_user, onde uma guardará o username e a senha.
+#e a outra guardará o local onde o username, o email e senha estão
+#cadastrados.
 def criar():
     conn = connect()
     cursor = conn.cursor()
 
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS user(
+        CREATE TABLE IF NOT EXISTS usuarios(
                    id INTEGER PRIMARY KEY AUTOINCREMENT,
                    user TEXT NOT NULL,
                    password TEXT NOT NULL
@@ -19,19 +23,23 @@ def criar():
                  """)
     
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS logins_user(
+        CREATE TABLE IF NOT EXISTS login(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    app TEXT NOT NULL,
+                    site TEXT NOT NULL,
                     username TEXT NOT NULL,
                     email TEXT NOT NULL UNIQUE,
                     password TEXT NOT NULL
+                    usuario_id INTEGER NOT NULL,
+                   
+                    FOREIGN KEY(usuario_id) REFERENCES usuarios(id)
                    );
                 """)
     conn.commit()
+    conn.close()
 
 
-
-def update():
+#Essa função faz a seleção de tudo dentro da tabela e mostra.
+def listar_user():
     conn = connect()
     cursor = conn.cursor()
 
@@ -39,10 +47,11 @@ def update():
                 SELECT * FROM user
                 """)
     print(*cursor.fetchall())
+    conn.close()
 
 
-
-def inserir():
+#Essa função faz a inserção dos dados na tabela user
+def inserir_user():
     conn = connect()
     cursor = conn.cursor()
 
@@ -50,10 +59,11 @@ def inserir():
                 INSERT INTO user (user,password) VALUES ("Eliam Rainier","Soufoda360@_")
                 """)
     conn.commit()
+    conn.close()
 
 
-
-def deletar():
+#essa função deleta a tabela da tabela user
+def deletar_user():
     conn = connect()
     cursor = conn.cursor()
 
@@ -61,3 +71,14 @@ def deletar():
                 DELETE FROM user WHERE id = 1
                 """)
     conn.commit()
+    conn.close()
+
+#essa função atualiza os dados da tabela user
+def update_user():
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+                UPDATE user 
+                SET 
+                """)
