@@ -1,6 +1,5 @@
 from database import *
 
 criar()
-inserir()
-listar()
-deletar()
+inserir_user()
+listar_user()

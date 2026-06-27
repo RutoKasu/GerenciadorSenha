@@ -1,4 +1,5 @@
 import sqlite3
+import hashlib
 
 #Iniciar a conexão com o banco de dados podendo assim fazer o CRUD.
 def connect():
@@ -28,7 +29,7 @@ def criar():
                     site TEXT NOT NULL,
                     username TEXT NOT NULL,
                     email TEXT NOT NULL UNIQUE,
-                    password TEXT NOT NULL
+                    password TEXT NOT NULL,
                     usuario_id INTEGER NOT NULL,
                    
                     FOREIGN KEY(usuario_id) REFERENCES usuarios(id)
@@ -52,12 +53,17 @@ def listar_user():
 
 #Essa função faz a inserção dos dados na tabela user
 def inserir_user():
+
+    valor_user = input("Informe o nome do usuário: ")
+    valor_senha = int(input("informe a senha: "))
+
     conn = connect()
     cursor = conn.cursor()
 
     cursor.execute("""
-                INSERT INTO user (user,password) VALUES ("Eliam Rainier","Soufoda360@_")
-                """)
+                INSERT INTO user (user,password) 
+                VALUES (?,?)
+                """,(valor_user,valor_senha))
     conn.commit()
     conn.close()
 
