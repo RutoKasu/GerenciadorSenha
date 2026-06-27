@@ -15,7 +15,7 @@ def criar():
     cursor = conn.cursor()
 
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS usuarios(
+        CREATE TABLE IF NOT EXISTS user(
                    id INTEGER PRIMARY KEY AUTOINCREMENT,
                    user TEXT NOT NULL,
                    password TEXT NOT NULL
@@ -74,11 +74,11 @@ def deletar_user():
     conn.close()
 
 #essa função atualiza os dados da tabela user
-def update_user():
-    conn = connect()
-    cursor = conn.cursor()
+# def update_user():
+#     conn = connect()
+#     cursor = conn.cursor()
 
-    cursor.execute("""
-                UPDATE user 
-                SET 
-                """)
+#     cursor.execute("""
+#                 UPDATE user 
+#                 SET 
+#                 """)
