@@ -5,7 +5,7 @@ rodando = True
 
 while rodando:
     print("=========")
-    print("Menu: \n[1] Criar Banco de Dados \n[2] Consultar Banco\n[3] Inserir dados\n[4] Deletar Banco\n[0] Sair")
+    print("Menu: \n[1] Criar Banco de Dados \n[2] Consultar Banco\n[3] Inserir dados\n[4] Deletar Banco\n[5] Deletar Usuário\n[0] Sair")
     try:
         choice = int(input("Escolha uma opção: "))
     except:
@@ -24,6 +24,9 @@ while rodando:
                 print("Ocorreu um erro no banco de dados!")
         case 4:
             deletar_banco()
+        case 5:
+            listar_user()
+            deletar_user()
         case 0:
             rodando = False
             print("Finalizando Programa...")

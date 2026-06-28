@@ -112,14 +112,21 @@ def inserir_user():
 
 #essa função deleta a tabela da tabela user
 def deletar_user():
-    conn = connect()
-    cursor = conn.cursor()
+    if os.path.exists("banco/senhas.db"):
+        valor_id = input("Qual o id da tabela user você deseja apagar: ")
 
-    cursor.execute("""
-                DELETE FROM user WHERE id = 1
-                """)
-    conn.commit()
-    conn.close()
+        conn = connect()
+        cursor = conn.cursor()
+
+        cursor.execute("""
+                    DELETE FROM user WHERE id = ?
+                    """,(valor_id,))
+        conn.commit()
+        conn.close()
+
+        print(f"O usuário com ID {valor_id} foi deletado com sucesso!")
+    else:
+        print("Banco de dados não foi encontrado!")
 
 
 
