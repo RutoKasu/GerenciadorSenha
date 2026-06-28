@@ -45,9 +45,9 @@ def criar():
                         username TEXT NOT NULL,
                         email TEXT NOT NULL UNIQUE,
                         password TEXT NOT NULL,
-                        usuario_id INTEGER NOT NULL,
+                        user_id INTEGER NOT NULL,
                     
-                        FOREIGN KEY(usuario_id) REFERENCES usuarios(id)
+                        FOREIGN KEY(user_id) REFERENCES user(id)
                     );
                     """)
         conn.commit()
