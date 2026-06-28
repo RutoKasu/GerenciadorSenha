@@ -1,5 +1,4 @@
-import sqlite3
-import hashlib
+import sqlite3, hashlib, os
 
 #Iniciar a conexão com o banco de dados podendo assim fazer o CRUD.
 def connect():
@@ -55,15 +54,17 @@ def listar_user():
 def inserir_user():
 
     valor_user = input("Informe o nome do usuário: ")
-    valor_senha = int(input("informe a senha: "))
+    valor_senha = input("informe a senha: ")
+
+    senha_hash = hashlib.sha256(valor_senha.encode('utf-8')).hexdigest()
 
     conn = connect()
     cursor = conn.cursor()
 
     cursor.execute("""
                 INSERT INTO user (user,password) 
-                VALUES (?,?)
-                """,(valor_user,valor_senha))
+                VALUES (?,?);
+                """,(valor_user,senha_hash,))
     conn.commit()
     conn.close()
 
@@ -78,6 +79,14 @@ def deletar_user():
                 """)
     conn.commit()
     conn.close()
+
+#função para deletar todo o banco de dados
+def deletar_banco():
+    if os.path.exists("banco/senhas.db"):
+        os.remove("banco/senhas.db")
+        print("O banco de dados foi deletado com sucesso.")
+    else:
+        print("Banco de dados não foi encontrado!")
 
 #essa função atualiza os dados da tabela user
 # def update_user():
