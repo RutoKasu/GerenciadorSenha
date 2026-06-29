@@ -18,10 +18,7 @@ while rodando:
         case 2:
             listar_user()
         case 3:
-            try:
-                inserir_user()
-            except:
-                print("Ocorreu um erro no banco de dados!")
+            inserir_user()
         case 4:
             deletar_banco()
         case 5:

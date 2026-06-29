@@ -41,7 +41,7 @@ def criar():
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS login(
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        site TEXT NOT NULL,
+                        servico TEXT NOT NULL,
                         username TEXT NOT NULL,
                         email TEXT NOT NULL UNIQUE,
                         password TEXT NOT NULL,
@@ -62,7 +62,7 @@ def criar():
 
 
 
-#Essa função faz a seleção de tudo dentro da tabela e mostra.
+#Essa função faz a seleção de tudo dentro da tabela (user) e mostra.
 def listar_user():
     if os.path.exists('banco/senhas.db'):
         print("===== LISTAGEM =====")
@@ -77,6 +77,19 @@ def listar_user():
     else:
         print("Banco de dados não existe.")
 
+
+#Essa função faz a seleção de tudo dentro da tabela de senhas (login) e mostra
+def listar_login():
+    if os.path.exists('banco/senha.db'):
+        print("===== LISTAGEM ======")
+        conn = connect()
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT * FROM login")
+        print(cursor.fetchall())
+        conn.close()
+    else:
+        print("Banco de Dados não existe")
 
 
 
@@ -105,6 +118,32 @@ def inserir_user():
         print("Banco de dados inexistente!\nCriei o banco de dados.")
 
 
+
+
+
+
+
+def inserir_login(user_id_logado):
+    if os.path.exists('banco/senhas.db'):
+        print("===== INSERÇÃO DE DADOS =====")
+
+        valor_servico = input("Informe o serviço: ")
+        valor_user = input("Informe o username: ")
+        valor_email = input("Informe o email: ")
+        valor_password = input("Informe a senha: ")
+
+        conn = connect()
+        cursor = conn.cursor()
+
+        cursor.execute("PRAGMA foreign_keys = ON;")
+
+        cursor.execute("""
+                     INSERT INTO login (servico,username,email,password,user_id) 
+                     VALUES (?,?,?,?)
+                     """,(valor_servico,valor_user,valor_email,valor_password,user_id_logado))
+        
+        conn.commit()
+        conn.close()
 
 
 
@@ -140,18 +179,3 @@ def deletar_banco():
         print("O banco de dados foi deletado com sucesso.")
     else:
         print("Banco de dados não foi encontrado!")
-
-
-
-
-
-
-#essa função atualiza os dados da tabela user
-# def update_user():
-#     conn = connect()
-#     cursor = conn.cursor()
-
-#     cursor.execute("""
-#                 UPDATE user 
-#                 SET 
-#                 """)
