@@ -1,3 +1,7 @@
+#versão 0.5.1
+#dev: Eliam Rainier Gois de Lima
+
+
 from database import *
 import time
 
